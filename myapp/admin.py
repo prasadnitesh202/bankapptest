@@ -9,4 +9,5 @@ admin.site.register(BankUser)
 admin.site.register(Card)
 admin.site.register(Atm)
 admin.site.register(Transaction)
+admin.site.register(EMI)
 

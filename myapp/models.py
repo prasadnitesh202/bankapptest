@@ -84,7 +84,13 @@ class Transaction(models.Model):
             return str('debited '+str(self.amount)+' from account no: '+str(self.acc_no))
         else:
             return str('credited '+str(self.amount)+' to account no: '+str(self.acc_no))
+class EMI(models.Model):
+    loan_id=models.ForeignKey(Loan,on_delete=models.CASCADE)
+    interest=models.FloatField()
+    installment=models.IntegerField()
 
+    def __str__(self):
+        return str(self.loan_id)
         
 
 
