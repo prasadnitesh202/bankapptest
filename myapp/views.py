@@ -27,17 +27,16 @@ def webhook(request):
         else:
             fulfillmentText = {'fulfillmentText': 'Speaking to you from \
             backend'}
-    elif action=='expense-dateperiod':
-        start_date=parameters.get('date-period').get('startDate')
-        end_date=parameters.get('date-period').get('endDate')
-        fulfillmentText={'fulfillmentText': 'You are looking for expenditure between'+str(start_date)+' and'+str(end_date)}
-    elif action=='lastlogin':
-        fulfillmentText={'fulfillmentText':'Last login details to be fetched from backend later'}
-    elif action=='creditcardbill':
-        fulfillmentText={'fulfillmentText':'Credit card bill for last month is:(to be fetched from db)'}
-
-
-
-    
-    # return response 
+    elif action == 'expense-dateperiod':
+        start_date = parameters.get('date-period').get('startDate')
+        end_date = parameters.get('date-period').get('endDate')
+        fulfillmentText = {'fulfillmentText': 'You are looking for expenditure\
+         between'+str(start_date)+' and'+str(end_date)}
+    elif action == 'lastlogin':
+        fulfillmentText = {'fulfillmentText': 'Last login details to be\
+         fetched from backend later'}
+    elif action == 'creditcardbill':
+        fulfillmentText = {'fulfillmentText': 'Credit card bill for last month\
+         is:(to be fetched from db)'}
+    # return response
     return JsonResponse(fulfillmentText, safe=False)
