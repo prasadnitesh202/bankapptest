@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from .models import Account
 import json
 
 # define home function
@@ -28,6 +29,8 @@ def webhook(request):
             fulfillmentText = {'fulfillmentText': 'Speaking to you from \
             backend'}
     elif action == 'expense-dateperiod':
+        ano=Account.objects.filter(pk=76733687163)
+        print(ano)
         start_date = parameters.get('date-period').get('startDate')
         end_date = parameters.get('date-period').get('endDate')
         fulfillmentText = {'fulfillmentText': 'You are looking for expenditure\
