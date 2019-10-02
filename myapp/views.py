@@ -16,9 +16,10 @@ def webhook(request):
     req = json.loads(request.body)
     # get action from json
     action = req.get('queryResult').get('action')
+    parameters = req.get('queryResult').get('parameters')
     # return a fulfillment message
     if action == 'get_accnum':
-        account_type = req.get('queryResult').get('parameters').get('account-type')
+        account_type = parameters.get('account-type')
         if account_type == 'Savings':
             fulfillmentText = {'fulfillmentText': 'Your savings account has \
             balanced toppings'}
