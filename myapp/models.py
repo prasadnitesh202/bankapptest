@@ -32,8 +32,6 @@ class Account(models.Model):
             self.acc_no = acc_no
         super(Account, self).save()
 
-<<<<<<< HEAD
-
 class Loan(models.Model):
     loan_id = models.AutoField(primary_key=True)
     acc_no = models.ForeignKey(Account, on_delete=models.CASCADE)
