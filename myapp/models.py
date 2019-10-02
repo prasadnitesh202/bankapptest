@@ -32,6 +32,7 @@ class Account(models.Model):
             self.acc_no = acc_no
         super(Account, self).save()
 
+<<<<<<< HEAD
 
 class Loan(models.Model):
     loan_id = models.AutoField(primary_key=True)
@@ -63,3 +64,23 @@ class Card(models.Model):
 
     def __str__(self):
         return str(self.card_id)
+
+class Loan(models.Model):
+    loan_id=models.AutoField(primary_key=True)
+    acc_no=models.ForeignKey(Account,on_delete=models.CASCADE)
+    branch_id=models.ForeignKey(Branch,on_delete=models.CASCADE)
+    amount=models.IntegerField()
+
+    def __str__(self):
+        return str(self.loan_id)
+
+class Atm(models.Model):
+    atm_id=models.AutoField(primary_key=True)
+    city=models.CharField(max_length=50)
+    latitude=models.CharField(max_length=10)
+    longitude=models.CharField(max_length=10)
+
+    def __str__(self):
+        return str(self.atm_id)
+
+
