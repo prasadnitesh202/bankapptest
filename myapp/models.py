@@ -91,6 +91,16 @@ class EMI(models.Model):
 
     def __str__(self):
         return str(self.loan_id)
+
+class FixedDeposit(models.Model):
+    acc_no=models.ForeignKey(Account,on_delete=models.CASCADE)
+    amount=models.IntegerField()
+    start_date=models.DateField()
+    end_date=models.DateField()
+    interest=models.FloatField()
+
+    def __str__(self):
+        return str(self.acc_no)+' :amount: '+str(self.amount)
         
 
 
