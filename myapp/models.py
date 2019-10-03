@@ -111,8 +111,8 @@ class FixedDeposit(models.Model):
         return str(self.acc_no)+' :amount: '+str(self.amount)
 
 
-class TestUser(models.Model):
-    fname=u_model.set_username()
+# class TestUser(models.Model):
+#     fname=u_model.set_username()
 
 
 

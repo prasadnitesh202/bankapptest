@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import formats
 from .models import *
 import json
 
@@ -43,12 +44,18 @@ def webhook(request):
         end_date = parameters.get('date-period').get('endDate')
         fulfillmentText = {'fulfillmentText': 'You are looking for expenditure\
          between'+str(start_date)+' and'+str(end_date)}
+
+
     elif action == 'lastlogin':
         fulfillmentText = {'fulfillmentText': 'Last login details to be\
          fetched from backend later'}
+
+
     elif action == 'creditcardbill':
         fulfillmentText = {'fulfillmentText': 'Credit card bill for last month\
          is:(to be fetched from db)'}
+
+
     elif action =='emi_status':
         a=EMI.objects.filter(loan_id__acc_no=acc_no)
         text=""
@@ -99,6 +106,26 @@ def webhook(request):
                 text=text+'\n'+str(c+1)+':'+'  amount: '+str(i.amount)+' expires on  '+str(i.end_date)+'\n'
                 c=c+1
         fulfillmentText={'fulfillmentText':text}
+
+    elif action=='transaction-timeperiod':
+        start_date = parameters.get('date-period').get('startDate')
+        print(type(start_date))
+        # s=dateutil.parser.parse('start_date')
+        # print(s)
+
+        d1 = datetime.datetime.strptime(start_date,"%Y-%m-%dT%H:%M:%SZ")
+        print(d1)
+        # d2 = datetime.datetime.strptime("2013-07-10T11:00:00.000Z","%Y-%m-%dT%H:%M:%S.%fZ")
+
+
+
+   
+        end_date = parameters.get('date-period').get('endDate')
+        print(end_date)
+
+        a=Transaction.objects.filter(acc_no__acc_no=acc_no).filter(date__range=[start_date, end_date])
+        for i in a:
+            print(i)
 
 
 
