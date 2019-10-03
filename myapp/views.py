@@ -85,6 +85,24 @@ def webhook(request):
                 c=c+1
         fulfillmentText={'fulfillmentText':text}
 
+    elif action=='fd-dateperiod':
+        a=FixedDeposit.objects.filter(acc_no__acc_no=acc_no)
+        c=a.count()
+        print(c)
+        if(c==0):
+            text="You dont have any fixed deposit linked to bank account. Please get in touch with our customer care to know about fixed deposit schemes or you can ask me too"
+
+        else:
+            text="You have a total of "+str(c)+" fixed deposits linked to your bank account"
+            c=0
+            for i in a:
+                text=text+'\n'+str(c+1)+':'+'  amount: '+str(i.amount)+' expires on  '+str(i.end_date)+'\n'
+                c=c+1
+        fulfillmentText={'fulfillmentText':text}
+
+
+
+
             
 
 
