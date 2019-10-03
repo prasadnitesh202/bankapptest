@@ -72,6 +72,23 @@ def webhook(request):
                 c=c+1
     
         fulfillmentText={'fulfillmentText':'Your Fixed deposit status is:: \n'+text}
+    elif action=='fd-amount':
+        a=FixedDeposit.objects.filter(acc_no__acc_no=acc_no)
+        c=a.count()
+        if(c==0):
+            text="0. You dont have any fixed deposit linked to bank account"
+        else:
+            text="You have a total of "+str(c)+" fixed deposits linked to your bank account"
+            c=0
+            for i in a:
+                text=text+'\n'+str(c+1)+': '+'  amount: '+str(i.amount)+'\n  '
+                c=c+1
+        fulfillmentText={'fulfillmentText':text}
+
+            
+
+
+
 
 
         
