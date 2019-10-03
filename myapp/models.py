@@ -1,7 +1,7 @@
 from django.db import models
 from random import randint
 from datetime import datetime
-
+from django.contrib.auth.models import User as u_model
 
 class Branch(models.Model):
     branch_id = models.AutoField(primary_key=True)
@@ -74,11 +74,19 @@ class Atm(models.Model):
         return str(self.atm_id)
 
 class Transaction(models.Model):
+    types=(
+        ('D','Debit Card'),
+        ('C','Credit Card'),
+        ('L','Loan'),
+        ('A','Account'),
+    )
     transaction_id=models.AutoField(primary_key=True)
     acc_no=models.ForeignKey(Account,on_delete=models.CASCADE)
     is_debited=models.BooleanField(default=True)
     date_time=models.DateTimeField(default=datetime.now())
     amount=models.IntegerField()
+    transaction_type = models.CharField(max_length=1,choices=types)
+    
     def __str__(self):
         if(self.is_debited==True):
             return str('debited '+str(self.amount)+' from account no: '+str(self.acc_no))
@@ -101,7 +109,12 @@ class FixedDeposit(models.Model):
 
     def __str__(self):
         return str(self.acc_no)+' :amount: '+str(self.amount)
-        
+
+
+class TestUser(models.Model):
+    fname=u_model.set_username()
+
+
 
 
 

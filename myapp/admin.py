@@ -11,4 +11,4 @@ admin.site.register(Atm)
 admin.site.register(Transaction)
 admin.site.register(EMI)
 admin.site.register(FixedDeposit)
-
+admin.site.register(TestUser)
