@@ -5,7 +5,7 @@ from .models import *
 import json
 
 #demo account number for testing chatbot
-acc_no=7673368716
+acc_no=76733687163
 
 # define home function
 def home(request):
@@ -58,6 +58,21 @@ def webhook(request):
             fulfillmentText={'fulfillmentText':'You dont have any emi in your account'}
         else: 
             fulfillmentText={'fulfillmentText':'Your EMI status is \n'+text}
+    elif action=='fd-general':
+        a=FixedDeposit.objects.filter(acc_no__acc_no=acc_no)
+        c=a.count()
+        text=""
+        if c==0:
+            text="You dont have any fixed deposit linked to your account "
+        else:
+            text="you have "+str(c)+" fixed deposits linked in your account"+' \n '
+            c=0
+            for i in a:
+                text=text+'('+str(c+1)+') amount : '+str(i.amount)+'\t'+'startdate: '+str(i.start_date)+'\t'+' end date: '+str(i.end_date)+'\t'+' interest: '+str(i.interest)
+                c=c+1
+    
+        fulfillmentText={'fulfillmentText':'Your Fixed deposit status is:: \n'+text}
+
 
         
     # return response
