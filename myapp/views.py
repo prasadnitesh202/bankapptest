@@ -5,6 +5,9 @@ from django.utils import formats
 from .models import *
 from .helperfunctions import *
 import json
+from datetime import datetime, timedelta
+
+
 
 #demo account number for testing chatbot
 acc_no=76733687163
@@ -129,6 +132,110 @@ def webhook(request):
 
         fulfillmentText={'fulfillmentText':text}
         print(a)
+
+    elif action=='transaction-particularday':
+        start_date = parameters.get('date')
+        d1 = datefield_parse(start_date)
+        d2=d1+timedelta(days=1)
+        print(d1)
+        print(d2)
+        a=Transaction.objects.filter(acc_no__acc_no=acc_no).filter(date_time__date__range=[d1, d2])
+        print(a.count())
+        if(a.count()==0):
+            text="No transactions on "+str(d1)
+        else:
+            text=""
+            for i in a:
+                text=text+" amount: "+str(i.amount)+" on "+str(i.date_time)[0:19]+' and'
+        fulfillmentText={'fulfillmentText':text}
+    
+
+    elif action=='transactions-debited':
+        start_date = parameters.get('date-period').get('startDate')
+        print(type(start_date))
+        # s=dateutil.parser.parse('start_date')
+        # print(s)
+        d1 = datefield_parse(start_date)
+        # d2 = datetime.datetime.strptime("2013-07-10T11:00:00.000Z","%Y-%m-%dT%H:%M:%S.%fZ")
+        print(d1)
+
+
+   
+        end_date = parameters.get('date-period').get('endDate')
+        d2=datefield_parse(end_date)
+        print(d2)
+        text=''
+        a=Transaction.objects.filter(acc_no__acc_no=acc_no).filter(date_time__date__range=[d1, d2]).filter(is_debited=True)
+        if(a.count()==0):
+            text='No transactions matched.'
+        else:
+            for i in a:
+                text=text+' debited '+str(i.amount)+' on '+str(i.date_time)+'  '
+        fulfillmentText={'fulfillmentText':text}
+
+    
+    elif action=='transactions-credited':
+        start_date = parameters.get('date-period').get('startDate')
+        print(type(start_date))
+        # s=dateutil.parser.parse('start_date')
+        # print(s)
+        d1 = datefield_parse(start_date)
+        # d2 = datetime.datetime.strptime("2013-07-10T11:00:00.000Z","%Y-%m-%dT%H:%M:%S.%fZ")
+        print(d1)
+
+
+   
+        end_date = parameters.get('date-period').get('endDate')
+        d2=datefield_parse(end_date)
+        print(d2)
+        text=''
+        a=Transaction.objects.filter(acc_no__acc_no=acc_no).filter(date_time__date__range=[d1, d2]).filter(is_debited=False)
+        if(a.count()==0):
+            text='No transactions matched.'
+        else:
+            for i in a:
+                text=text+' credited '+str(i.amount)+' on '+str(i.date_time)+'  '
+        fulfillmentText={'fulfillmentText':text}
+
+
+    elif action=='transaction-debitcard-period':
+        start_date = parameters.get('date-period').get('startDate')
+        print(type(start_date))
+        # s=dateutil.parser.parse('start_date')
+        # print(s)
+        d1 = datefield_parse(start_date)
+        # d2 = datetime.datetime.strptime("2013-07-10T11:00:00.000Z","%Y-%m-%dT%H:%M:%S.%fZ")
+        print(d1)
+
+
+   
+        end_date = parameters.get('date-period').get('endDate')
+        d2=datefield_parse(end_date)
+        print(d2)
+        text=''
+        a=Transaction.objects.filter(acc_no__acc_no=acc_no).filter(transaction_type='D')
+        if(a.count()==0):
+            text=' no transactions between '+start_date+' and '+end_date+' from debit card'
+        else:
+            for i in a:
+                if(i.is_debited==True):
+                    text=text+' debited '+str(i.amount)+' on '+str(i.date_time)
+                else:
+                    text=text+' credited '+str(i.amount)+' on '+str(i.date_time)
+        fulfillmentText={'fulfillmentText':text}
+                
+
+
+
+
+
+
+
+        
+
+
+
+
 
 
 
