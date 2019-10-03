@@ -19,7 +19,11 @@ from django.contrib import admin
 from myapp import views
 urlpatterns = [
     # define a route for home
+    path('/',views.home),
     path('home/', views.home, name='home'),
     path('webhook/', views.webhook, name='webhook'),
-     path('admin/', admin.site.urls),
+    path('login/', views.login, name='login'),
+    path('chatbot/', views.chatbot, name='chatbot'),
+    path('admin/', admin.site.urls),
+
 ]
