@@ -223,6 +223,33 @@ def webhook(request):
                 else:
                     text=text+' credited '+str(i.amount)+' on '+str(i.date_time)
         fulfillmentText={'fulfillmentText':text}
+
+
+    elif action=='transaction-creditcard-period':
+        start_date = parameters.get('date-period').get('startDate')
+        print(type(start_date))
+        # s=dateutil.parser.parse('start_date')
+        # print(s)
+        d1 = datefield_parse(start_date)
+        # d2 = datetime.datetime.strptime("2013-07-10T11:00:00.000Z","%Y-%m-%dT%H:%M:%S.%fZ")
+        print(d1)
+
+
+   
+        end_date = parameters.get('date-period').get('endDate')
+        d2=datefield_parse(end_date)
+        print(d2)
+        text=''
+        a=Transaction.objects.filter(acc_no__acc_no=acc_no).filter(transaction_type='C')
+        if(a.count()==0):
+            text=' no transactions between '+start_date+' and '+end_date+' from credit card'
+        else:
+            for i in a:
+                if(i.is_debited==True):
+                    text=text+' debited '+str(i.amount)+' on '+str(i.date_time)
+                else:
+                    text=text+' credited '+str(i.amount)+' on '+str(i.date_time)
+        fulfillmentText={'fulfillmentText':text}    
                 
 
 
