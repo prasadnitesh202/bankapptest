@@ -3,8 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import formats
 from .models import *
+from .helperfunctions import *
 import json
-import datetime
 
 #demo account number for testing chatbot
 acc_no=76733687163
@@ -113,16 +113,14 @@ def webhook(request):
         print(type(start_date))
         # s=dateutil.parser.parse('start_date')
         # print(s)
-        start_date = start_date[0:19]
-        d1 = datetime.datetime.strptime(start_date,"%Y-%m-%dT%H:%M:%S")
+        d1 = datefield_parse(start_date)
         # d2 = datetime.datetime.strptime("2013-07-10T11:00:00.000Z","%Y-%m-%dT%H:%M:%S.%fZ")
         print(d1)
 
 
    
         end_date = parameters.get('date-period').get('endDate')
-        end_date = end_date[0:19]
-        d2 = datetime.datetime.strptime(end_date,"%Y-%m-%dT%H:%M:%S")
+        d2=datefield_parse(end_date)
         print(d2)
         text='You have spend the following: '+'\n'
         a=Transaction.objects.filter(acc_no__acc_no=acc_no).filter(date_time__date__range=[d1, d2])
