@@ -81,7 +81,12 @@ def webhook(request):
             text="You have a total of "+str(c)+" fixed deposits linked to your bank account"
             c=0
             for i in a:
-                text=text+'\n'+str(c+1)+' '
+                text=text+'\n'+str(c+1)+': '+'  amount: '+str(i.amount)+'\n  '
+                c=c+1
+        fulfillmentText={'fulfillmentText':text}
+
+            
+
 
 
 
