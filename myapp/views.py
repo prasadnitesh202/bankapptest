@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import formats
@@ -297,6 +297,7 @@ def login_request(request):
             password = request.POST.get('password')
         if BankUser.objects.filter(name=username).filter(password=password).count() == 1:
             print("Success")
+            return redirect("home")
         else:
             print("Failure")
     else:
@@ -304,8 +305,3 @@ def login_request(request):
     return render(request = request,
                     template_name = "myapp/Login.html",
                     context={"form":form})
-
-def logout_request(request):
-    logout(request)
-    messages.info(request, "Logged out successfully!")
-    return redirect("home")
