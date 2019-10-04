@@ -5,7 +5,11 @@ from django.utils import formats
 from .models import *
 from .helperfunctions import *
 import json
-
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth import login,logout,authenticate
+from .forms import BankUserForm
 #demo account number for testing chatbot
 acc_no=76733687163
 
@@ -141,3 +145,32 @@ def webhook(request):
         
     # return response
     return JsonResponse(fulfillmentText, safe=False)
+
+
+def register(request):
+    form = UserCreationForm
+    return render(request = request,
+                  template_name = "main/register.html",
+                  context={"form":form})
+
+def login_request(request):
+    form_class = BankUserForm
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+        if form.is_valid():
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+        if BankUser.objects.filter(name=username).filter(password=password).count() == 1:
+            print("Success")
+        else:
+            print("Failure")
+    else:
+        form = form_class()
+    return render(request = request,
+                    template_name = "myapp/Login.html",
+                    context={"form":form})
+
+def logout_request(request):
+    logout(request)
+    messages.info(request, "Logged out successfully!")
+    return redirect("home")

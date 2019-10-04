@@ -1,7 +1,10 @@
 from django.db import models
 from random import randint
 from datetime import datetime
-from django.contrib.auth.models import User as u_model
+from django.contrib.auth.models import User
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class Branch(models.Model):
     branch_id = models.AutoField(primary_key=True)
@@ -111,8 +114,6 @@ class FixedDeposit(models.Model):
         return str(self.acc_no)+' :amount: '+str(self.amount)
 
 
-# class TestUser(models.Model):
-#     fname=u_model.set_username()
 
 
 

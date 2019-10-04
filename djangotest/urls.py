@@ -22,8 +22,9 @@ urlpatterns = [
     path('/',views.home),
     path('home/', views.home, name='home'),
     path('webhook/', views.webhook, name='webhook'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_request, name='login'),
     path('chatbot/', views.chatbot, name='chatbot'),
     path('admin/', admin.site.urls),
+    path("logout/", views.logout_request, name="logout"),
 
 ]
