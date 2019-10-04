@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 
 
 #demo account number for testing chatbot
-acc_no=76733687163
+acc_no=12345
 
 # define home function
 def home(request):
@@ -204,6 +204,7 @@ def webhook(request):
 
 
     elif action=='transaction-debitcard-period':
+        print(acc_no)
         start_date = parameters.get('date-period').get('startDate')
         print(type(start_date))
         # s=dateutil.parser.parse('start_date')
@@ -296,6 +297,10 @@ def login_request(request):
             username = request.POST.get('username')
             password = request.POST.get('password')
         if BankUser.objects.filter(name=username).filter(password=password).count() == 1:
+            global acc_no
+            acc_no=int(str(BankUser.objects.filter(name=username).filter(password=password)[0].acc_no))
+            print(acc_no)
+            
             print("Success")
             return redirect("home")
         else:
