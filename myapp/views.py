@@ -14,13 +14,21 @@ from datetime import datetime, timedelta
 
 
 
+#demo account number for testing chatbot
+acc_no=0
 
-acc_no=12345
 
 
 # define home function
 def home(request):
-    return render(request,'myapp/Bank.html')
+    name='hello world'
+    
+    if acc_no!=0:
+        print('you are logged in')
+        name=str(BankUser.objects.filter(acc_no=acc_no)[0].name)
+        print(name)
+
+    return render(request,'myapp/Bank.html',{'acc':name})
 
 def login(request):
     return render(request,'myapp/Login.html')
