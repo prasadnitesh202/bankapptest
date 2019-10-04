@@ -14,13 +14,9 @@ from datetime import datetime, timedelta
 
 
 
-<<<<<<< HEAD
 #demo account number for testing chatbot
 acc_no=0
-=======
 
-acc_no=12345
->>>>>>> 31b2c723f474fdce1f379f3040489755e40974b8
 
 
 # define home function
