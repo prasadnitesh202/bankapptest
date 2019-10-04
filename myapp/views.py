@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 
 
 #demo account number for testing chatbot
-acc_no=76733687163
+acc_no=1234
 
 # define home function
 def home(request):
@@ -33,6 +33,7 @@ def chatbot(request):
 
 @csrf_exempt
 def webhook(request):
+
     # build a request object
     req = json.loads(request.body)
     # get action from json
