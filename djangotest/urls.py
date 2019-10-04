@@ -26,4 +26,8 @@ urlpatterns = [
     path('chatbot/', views.chatbot, name='chatbot'),
     path('admin/', admin.site.urls),
 
+
+    # path("logout/", views.logout_request, name="logout"),
+
+
 ]
