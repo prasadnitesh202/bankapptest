@@ -41,6 +41,9 @@ def login(request):
 def chatbot(request):
     return render(request,'myapp/Chatbot.html')
 
+def atmfinder(request):
+    return render(request,'myapp/atmfinder.html')
+
 
 
 

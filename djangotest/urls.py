@@ -26,6 +26,8 @@ urlpatterns = [
     path('chatbot/', views.chatbot, name='chatbot'),
     path('admin/', admin.site.urls),
     path("logout", views.logout_request, name="logout"),
+    path("atmfinder/", views.atmfinder, name="atmfinder"),
+
 
 
     # path("logout/", views.logout_request, name="logout"),
