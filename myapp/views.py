@@ -16,8 +16,8 @@ from datetime import datetime, timedelta
 
 #demo account number for testing chatbot
 acc_no=0
-
-
+button = 'Login'
+string = '/login'
 
 # define home function
 def home(request):
@@ -26,9 +26,14 @@ def home(request):
     if acc_no!=0:
         print('you are logged in')
         name=str(BankUser.objects.filter(acc_no=acc_no)[0].name)
+        global button
+        global string
+        button = 'Logout'
+        string = '/logout'
         print(name)
+        print(button)
 
-    return render(request,'myapp/Bank.html',{'acc':name})
+    return render(request,'myapp/Bank.html',{'acc':name,'button':button, 'string':string})
 
 def login(request):
     return render(request,'myapp/Login.html')
@@ -320,3 +325,13 @@ def login_request(request):
     return render(request = request,
                     template_name = "myapp/Login.html",
                     context={"form":form})
+
+def logout_request(request):
+    global acc_no
+    global button
+    global string
+    button = 'Login'
+    acc_no = 0
+    string = '/login'
+    print('Logout works')
+    return redirect("home")
