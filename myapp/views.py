@@ -22,6 +22,7 @@ name=""
 bname=""
 ano=""
 email=""
+button_class = "btn btn-outline-success my-2 my-sm-0"
 # define home function
 def home(request):
     name='hello world'
@@ -31,12 +32,14 @@ def home(request):
         name=str(BankUser.objects.filter(acc_no=acc_no)[0].name)
         global button
         global string
+        global button_class
+        button_class = 'btn btn-outline-danger mr-sm-2'
         button = 'Logout'
         string = '/logout'
         print(name)
         print(button)
 
-    return render(request,'myapp/Bank.html',{'acc':name,'button':button, 'string':string})
+    return render(request,'myapp/Bank.html',{'acc':name,'button':button, 'string':string, 'button_class':button_class})
 
 def login(request):
     return render(request,'myapp/Login.html')
@@ -354,7 +357,7 @@ def login_request(request):
             print(acc_no)
             
             print("Success")
-            return redirect("home")
+            return redirect("account")
         else:
             print("Failure")
     else:
@@ -367,7 +370,9 @@ def logout_request(request):
     global acc_no
     global button
     global string
+    global button_class
     button = 'Login'
+    button_class = 'btn btn-outline-success my-2 my-sm-0'
     acc_no = 0
     string = '/login'
     print('Logout works')
