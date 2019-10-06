@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("logout", views.logout_request, name="logout"),
     path("atmfinder/", views.atmfinder, name="atmfinder"),
+    path("account/",views.account,name="account"),
 
 
 

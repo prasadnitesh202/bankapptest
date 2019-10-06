@@ -18,7 +18,10 @@ from datetime import datetime, timedelta
 acc_no=0
 button = 'Login'
 string = '/login'
-
+name=""
+bname=""
+ano=""
+email=""
 # define home function
 def home(request):
     name='hello world'
@@ -43,6 +46,37 @@ def chatbot(request):
 
 def atmfinder(request):
     return render(request,'myapp/atmfinder.html')
+
+def account(request):
+ 
+    
+    if acc_no!=0:
+        name=str(BankUser.objects.filter(acc_no=acc_no)[0].name)
+        ano=str(BankUser.objects.filter(acc_no=acc_no)[0].acc_no)
+        email=str(BankUser.objects.filter(acc_no=acc_no)[0].email)
+        bname=str(Account.objects.filter(acc_no=acc_no)[0].branch_id)
+        global button
+        global string
+        button = 'Logout'
+        string = '/logout'
+        print(bname)
+        print(name)
+        print(ano)
+        print(email)
+        print(button)
+    else:
+        name=""
+        bname=""
+        ano=""
+        email=""
+        button = 'Login'
+        string = '/login'
+
+        
+        
+
+        
+    return render(request,'myapp/Account.html',{'name':name,'ano':ano,'email':email,'bname':bname})
 
 
 
